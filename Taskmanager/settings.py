@@ -73,12 +73,17 @@ WSGI_APPLICATION = "Taskmanager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+from decouple import config
+
+db_name = config('DATABASE_NAME')
+db_password = config('DATABASE_PASSWORD')
+
 DATABASES = {
     'default' : {
         'ENGINE' : 'django.db.backends.mysql',
-        'NAME' : 'ONTrack',
+        'NAME' : db_name,
         'USER' : 'root',
-        'PASSWORD' : 'Anirudh@1050',
+        'PASSWORD' : db_password,
         'HOST' : 'localhost',
         'PORT' : '3306',
     }
