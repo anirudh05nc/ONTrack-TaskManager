@@ -20,6 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+
+from decouple import config
+import dj_database_url
+
+
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -73,10 +79,6 @@ WSGI_APPLICATION = "Taskmanager.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-from decouple import config
-import dj_database_url
-from decouple import config
 
 
 DATABASES = {
