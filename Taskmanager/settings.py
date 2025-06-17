@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-)$i!jw6j97qtd+%mgoo!pxr2!8(=z2^waugk7^6(+sva2abo_h"
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -74,20 +75,29 @@ WSGI_APPLICATION = "Taskmanager.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 from decouple import config
+import dj_database_url
+from decouple import config
 
-db_name = config('DATABASE_NAME')
-db_password = config('DATABASE_PASSWORD')
 
 DATABASES = {
-    'default' : {
-        'ENGINE' : 'django.db.backends.mysql',
-        'NAME' : db_name,
-        'USER' : 'root',
-        'PASSWORD' : db_password,
-        'HOST' : 'localhost',
-        'PORT' : '3306',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
+
+
+# db_name = config('DATABASE_NAME')
+# db_password = config('DATABASE_PASSWORD')p
+# DATABASES = {
+#     'default' : {
+#         'ENGINE' : 'django.db.backends.mysql',
+#         'NAME' : db_name,
+#         'USER' : 'root',
+#         'PASSWORD' : db_password,
+#         'HOST' : 'localhost',
+#         'PORT' : '3306',
+#     }
+# }
 
 
 # Password validation
@@ -124,9 +134,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+import os
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
