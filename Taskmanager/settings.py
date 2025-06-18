@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-
+import os
 from decouple import config
 import dj_database_url
 
@@ -80,13 +80,23 @@ WSGI_APPLICATION = "Taskmanager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Supabase
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ontrack-db',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_X6tkQTya9VMS',
+        'HOST': 'ep-snowy-unit-a8h7d1xx-pooler.eastus2.azure.neon.tech',
+        'PORT': '5432',
+    }
 }
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
