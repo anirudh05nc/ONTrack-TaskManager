@@ -87,6 +87,18 @@ DATABASES = {
     )
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'CDfkbpkibeqxVJLySbYQkKZIxMfcmRCY',
+#         'HOST': 'turntable.proxy.rlwy.net',
+#         'PORT': '37992',
+#     }
+# }
+
+
 
 # db_name = config('DATABASE_NAME')
 # db_password = config('DATABASE_PASSWORD')p
