@@ -80,6 +80,16 @@ WSGI_APPLICATION = "Taskmanager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Render 
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL_RENDER'),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
+
+
 # Supabase
 # DATABASES = {
 #     'default': dj_database_url.config(
@@ -87,16 +97,7 @@ WSGI_APPLICATION = "Taskmanager.wsgi.application"
 #     )
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ontrack-db',
-        'USER': 'neondb_owner',
-        'PASSWORD': 'npg_X6tkQTya9VMS',
-        'HOST': 'ep-snowy-unit-a8h7d1xx-pooler.eastus2.azure.neon.tech',
-        'PORT': '5432',
-    }
-}
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
